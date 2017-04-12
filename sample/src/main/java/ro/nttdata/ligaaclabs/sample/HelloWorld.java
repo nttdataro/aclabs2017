@@ -28,6 +28,7 @@ public class HelloWorld {
 
 	/** Creates a new instance of HelloWorld */
 	public HelloWorld() {
+		super();
 	}
 
 	/**
@@ -38,13 +39,15 @@ public class HelloWorld {
 	 * @return response
 	 */
 	@GET
-	@Produces(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
 	public Response ping(@QueryParam("name") final String name) {
+		
+		
 		if (name != null && name.length() > 0) {
-			return Response.ok().entity("Hello, " + name + "!").build();
+			return Response.ok().entity("Hello, " + name + "! I'm a resource!").build();
 
 		} else {
-			return Response.ok("Hello!").build();
+			return Response.ok("Hello! I'm a resource!").build();
 		}
 	}
 
