@@ -5,7 +5,7 @@
 	<persistence-unit name="sample" transaction-type="JTA">
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 		<jta-data-source>jdbc/sample</jta-data-source>
-		<class>ro.nttdata.ligaaclabs.sample.business.entity.SampleEntry</class>
+		<class>ro.nttdata.ligaaclabs.sample.business.entity.UserEntity</class>
 		<properties>
 			<property name="eclipselink.target-database" value="PostgreSQL" />
 			<property name="eclipselink.ddl-generation" value="none" />
