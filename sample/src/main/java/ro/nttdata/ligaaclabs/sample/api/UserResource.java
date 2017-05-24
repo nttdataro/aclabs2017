@@ -15,6 +15,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import ro.nttdata.ligaaclabs.sample.business.control.UserController;
+import ro.nttdata.ligaaclabs.sample.business.data.AttendanceUserDO;
 import ro.nttdata.ligaaclabs.sample.business.data.DetailedUserDO;
 import ro.nttdata.ligaaclabs.sample.business.data.UserDO;
 
@@ -46,11 +47,19 @@ public class UserResource {
 	 * Gets a user entity with the given ID.
 	 * 
 	 * @return user entity by ID
-	 */
+	*/
 	@GET
 	@Path("{userentityID}")
 	public Response getUserEntity(@NotNull @PathParam("userentityID") String userEntityID) {
 		DetailedUserDO userDO = UserController.getUserEntity(userEntityID);
 		return Response.ok().entity(userDO).build();
+	}
+	 
+	@GET
+	@Path("workshop/{workshop}")
+	public Response getWorkshopAttendance(@NotNull @PathParam("workshop") String workshopName) {
+	AttendanceUserDO attendanceDO = UserController.getWorkshopAttendance(workshopName);
+	return Response.ok().entity(attendanceDO).build();
+	
 	}
 }

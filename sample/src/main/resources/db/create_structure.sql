@@ -43,7 +43,7 @@ CREATE TABLE user_attendance(
 
    created_timestamp  TIMESTAMP NOT NULL,
    
-   workshop       VARCHAR(100) NOT NULL 
+   workshop       BIGINT NOT NULL 
 );
 
 -- insert sample data
@@ -60,13 +60,13 @@ insert into user_table (firstname, lastname) values
 
 INSERT into user_attendance (user_id, created_timestamp, workshop) values
 
-(101, current_timestamp, 'web'),
+(101, current_timestamp, 1),
 
-(102, current_timestamp, 'agile'),
+(102, current_timestamp, 2),
 
-(103, current_timestamp, 'web'),
+(103, current_timestamp, 1),
 
-(100, current_timestamp, 'agile');
+(100, current_timestamp, 1);
 
 
 INSERT into user_roles (user_id, user_role) 
@@ -79,4 +79,5 @@ values
 (103, 'mentor'),
 
 (100, 'ninja');
+
 

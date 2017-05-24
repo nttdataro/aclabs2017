@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.SecondaryTable;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -19,9 +21,12 @@ import javax.persistence.Table;
 @SuppressWarnings("unused")
 @Entity
 @Table(name = "user_table", schema = "sample")
+@SecondaryTable(name="user_attendance", pkJoinColumns={
+        @PrimaryKeyJoinColumn(name="user_id", referencedColumnName="user_id")})
 @NamedQueries({
-		@NamedQuery(name = UserEntity.ALL, query = "SELECT s FROM UserEntity s"),
-		@NamedQuery(name = UserEntity.BY_ID, query = "SELECT s FROM UserEntity s where s.id = :id"), })
+		@NamedQuery(name = UserEntity.ALL, query = "SELECT u FROM UserEntity u"),
+		@NamedQuery(name = UserEntity.BY_ID, query = "SELECT u FROM UserEntity u where u.id = :id"),
+        @NamedQuery(name = UserEntity.BY_WKS, query = "SELECT a FROM UserEntity a where a.workshop = :workshop"), })
 @SequenceGenerator(name = "sq_user_id", sequenceName = "sq_user_id", allocationSize = 1)
 public class UserEntity implements Serializable {
 	/**
@@ -43,27 +48,35 @@ public class UserEntity implements Serializable {
 	 * The Constant BY_ID.
 	 */
 	public static final String BY_ID = PREFIX + ".by.id";
+	/**
+	 * The Constant BY_WKS.
+	 */
+	public static final String BY_WKS = PREFIX + ".by.wks";
 
 	/**
 	 * The id.
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_user_id")
-	@Column(name = "user_id", unique = true, nullable = false)
+	@Column(name = "user_id", unique = true, nullable = false, table = "user_table")
 	private long id;
 
 	/**
 	 * The first name.
 	 */
-	@Column(name = "firstname")
+	@Column(name = "firstname", table = "user_table")
 	private String firstName;
 
 	/**
 	 * The last name.
 	 */
-	@Column(name = "lastname")
+	@Column(name = "lastname", table = "user_table")
 	private String lastName;
-
+	/**
+	 * The workshop.
+	 */
+	@Column(name = "workshop", table = "user_attendance")
+	private int workshop;
 
 	/**
 	 * Gets the id.
@@ -120,6 +133,26 @@ public class UserEntity implements Serializable {
 	 */
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+	
+	/**
+	 * Gets the workshop.
+	 *
+	 * @return the workshop
+	 */
+	public int getWorkshop() {
+		return workshop;
+	}
+
+	/**
+	 * Sets the workshop
+	 *
+	 * @param workshop
+	 *            the workshop to set
+	 */
+	public void setWorkshop(int workshop) {
+		this.workshop = workshop;
+		
 	}
 
 }

@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import ro.nttdata.ligaaclabs.sample.business.data.AttendanceUserDO;
 import ro.nttdata.ligaaclabs.sample.business.data.DetailedUserDO;
 import ro.nttdata.ligaaclabs.sample.business.data.UserDO;
 import ro.nttdata.ligaaclabs.sample.business.entity.UserEntity;
@@ -29,6 +30,7 @@ public class UserController {
 	 * 
 	 * @return the user data objects
 	 */
+
 	@SuppressWarnings("unchecked")
 	public List<UserDO> getUserObjects() {
 		final List<UserEntity> userEntities = this.em.createNamedQuery(UserEntity.ALL).getResultList();
@@ -68,5 +70,31 @@ public class UserController {
 		detailedUserDO.setLastName(se.getLastName());
 
 		return detailedUserDO;
+	}
+	
+	/**
+	 * Gets the user entity with the workshop
+	 * 
+	 * @param workshop
+	 *            
+	 * @return the details of the workshop attendance
+	 */
+	public AttendanceUserDO getWorkshopAttendance(String workshopName){
+		TypedQuery<UserEntity> query = this.em.createNamedQuery(UserEntity.BY_WKS, UserEntity.class);
+		query.setParameter("workshop", Long.valueOf(workshopName));
+		List<UserEntity> resultList = query.getResultList();
+		if (resultList == null || resultList.isEmpty()) {
+		return null;
+		}
+		return toAttendanceUserDO(query.getResultList().get(0));
+	}
+
+	private AttendanceUserDO toAttendanceUserDO(UserEntity se) {
+		AttendanceUserDO attendanceUserDO = new AttendanceUserDO();
+		attendanceUserDO.setId(se.getId());
+		attendanceUserDO.setFirstName(se.getFirstName());
+		attendanceUserDO.setLastName(se.getLastName());
+		attendanceUserDO.setWorkshop(se.getWorkshop());
+		return attendanceUserDO;
 	}
 }
