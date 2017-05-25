@@ -47,19 +47,18 @@ public class UserResource {
 	 * Gets a user entity with the given ID.
 	 * 
 	 * @return user entity by ID
-	*/
+	 */
 	@GET
 	@Path("{userentityID}")
 	public Response getUserEntity(@NotNull @PathParam("userentityID") String userEntityID) {
 		DetailedUserDO userDO = UserController.getUserEntity(userEntityID);
 		return Response.ok().entity(userDO).build();
 	}
-	 
+
 	@GET
 	@Path("workshop/{workshop}")
 	public Response getWorkshopAttendance(@NotNull @PathParam("workshop") String workshopName) {
-	AttendanceUserDO attendanceDO = UserController.getWorkshopAttendance(workshopName);
-	return Response.ok().entity(attendanceDO).build();
-	
+		List<AttendanceUserDO> attendanceDO = UserController.getWorkshopAttendance(workshopName);
+		return Response.ok().entity(new GenericEntity<List<AttendanceUserDO>>(attendanceDO){}).build();
 	}
 }

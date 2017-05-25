@@ -39,7 +39,7 @@ CREATE TABLE user_attendance(
    
    num_id         BIGINT PRIMARY KEY DEFAULT NEXTVAL('sq_num_id'),
 
-   user_id	      BIGINT  REFERENCES user_table(user_id),
+   user_id	      BIGINT  REFERENCES user_table(user_id), //citesc despre constrainturi
 
    created_timestamp  TIMESTAMP NOT NULL,
    

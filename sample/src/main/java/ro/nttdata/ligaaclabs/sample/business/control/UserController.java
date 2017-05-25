@@ -1,5 +1,6 @@
 package ro.nttdata.ligaaclabs.sample.business.control;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -71,22 +72,26 @@ public class UserController {
 
 		return detailedUserDO;
 	}
-	
+
 	/**
 	 * Gets the user entity with the workshop
 	 * 
 	 * @param workshop
-	 *            
+	 * 
 	 * @return the details of the workshop attendance
 	 */
-	public AttendanceUserDO getWorkshopAttendance(String workshopName){
+	public List<AttendanceUserDO> getWorkshopAttendance(String workshopName) {
 		TypedQuery<UserEntity> query = this.em.createNamedQuery(UserEntity.BY_WKS, UserEntity.class);
 		query.setParameter("workshop", Long.valueOf(workshopName));
 		List<UserEntity> resultList = query.getResultList();
 		if (resultList == null || resultList.isEmpty()) {
-		return null;
+			return null;
 		}
-		return toAttendanceUserDO(query.getResultList().get(0));
+		List<AttendanceUserDO> result = new ArrayList<>();
+		for (UserEntity userEntity : resultList) {
+			result.add(toAttendanceUserDO(userEntity));
+		}
+		return result;
 	}
 
 	private AttendanceUserDO toAttendanceUserDO(UserEntity se) {
