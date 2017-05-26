@@ -1,82 +1,17 @@
 -- create schema
+DROP SCHEMA IF EXISTS attendance CASCADE;
+CREATE SCHEMA IF NOT EXISTS attendance;
+set search_path to attendance;
 
-DROP SCHEMA IF EXISTS sample CASCADE;
+-- create attendance sequence
+CREATE SEQUENCE sq_attendance_object_id START 100;
 
-CREATE SCHEMA IF NOT EXISTS sample;
-
-set search_path to sample;
-
-
-
--- create sequence
-
-
-CREATE SEQUENCE sq_user_id START 100;
-
-
-CREATE SEQUENCE sq_num_id START 1;
-
-
-
--- create table
-
-CREATE TABLE user_table(
-   
-   user_id	      BIGINT  PRIMARY KEY DEFAULT NEXTVAL('sq_user_id'),
-
-   firstname	 VARCHAR(100) NOT NULL,
-
-   lastname      VARCHAR(100) NOT NULL
-);
-CREATE TABLE user_roles(
-   
-   user_id	 BIGINT  REFERENCES user_table(user_id),
-
-   user_role          VARCHAR(100) NOT NULL
-);
-
-CREATE TABLE user_attendance(
-   
-   num_id         BIGINT PRIMARY KEY DEFAULT NEXTVAL('sq_num_id'),
-
-   user_id	      BIGINT  REFERENCES user_table(user_id),
-
+-- create attendance table
+CREATE TABLE attendanceTable(
+   attendance_id	  BIGINT PRIMARY KEY DEFAULT NEXTVAL('sq_attendance_object_id'),
+   firstName VARCHAR(100) NOT NULL,
+   lastName	  VARCHAR(100) NOT NULL,
    created_timestamp  TIMESTAMP NOT NULL,
-   
-   workshop       VARCHAR(100) NOT NULL 
+   dojo VARCHAR(100) NOT NULL,
+   laboratory VARCHAR(100) NOT NULL
 );
-
--- insert sample data
-insert into user_table (firstname, lastname) values
-
-('firstname1', 'lastname1'),
-
-('firstname2', 'lastname2'),
-
-('firstname3', 'lastname3'),
-
-('firstname4', 'lastname4');
-
-
-INSERT into user_attendance (user_id, created_timestamp, workshop) values
-
-(101, current_timestamp, 'web'),
-
-(102, current_timestamp, 'agile'),
-
-(103, current_timestamp, 'web'),
-
-(100, current_timestamp, 'agile');
-
-
-INSERT into user_roles (user_id, user_role) 
-values
-
-(101, 'mentor'),
-
-(102, 'ninja'),
-
-(103, 'mentor'),
-
-(100, 'ninja');
-
