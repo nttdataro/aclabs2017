@@ -23,7 +23,7 @@ import ro.nttdata.ligaaclabs.sample.business.data.UserDO;
  * Sample REST end point for getting info about the sample entities.
  *
  */
-@Path("/userentity")
+@Path("/user")
 @Stateless
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
@@ -49,11 +49,12 @@ public class UserResource {
 	 * @return user entity by ID
 	 */
 	@GET
-	@Path("{userentityID}")
-	public Response getUserEntity(@NotNull @PathParam("userentityID") String userEntityID) {
+	@Path("{userID}")
+	public Response getUserEntity(@NotNull @PathParam("userID") String userEntityID) {
 		DetailedUserDO userDO = UserController.getUserEntity(userEntityID);
 		return Response.ok().entity(userDO).build();
 	}
+<<<<<<< Updated upstream
 
 	@GET
 	@Path("workshop/{workshop}")
@@ -61,4 +62,18 @@ public class UserResource {
 		List<AttendanceUserDO> attendanceDO = UserController.getWorkshopAttendance(workshopName);
 		return Response.ok().entity(new GenericEntity<List<AttendanceUserDO>>(attendanceDO){}).build();
 	}
+||||||| merged common ancestors
+=======
+
+	/*
+	 *  GenericEntity
+	 *  http://docs.oracle.com/javaee/6/api/javax/ws/rs/core/GenericEntity.html
+	 */
+	@GET
+	@Path("workshop/{workshop}")
+	public Response getWorkshopAttendance(@NotNull @PathParam("workshop") String workshopName) {
+		List<AttendanceUserDO> attendanceDO = UserController.getWorkshopAttendance(workshopName);
+		return Response.ok().entity(new GenericEntity<List<AttendanceUserDO>>(attendanceDO){}).build();
+	}
+>>>>>>> Stashed changes
 }
