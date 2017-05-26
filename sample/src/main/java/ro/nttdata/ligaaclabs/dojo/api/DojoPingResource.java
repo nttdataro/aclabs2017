@@ -1,4 +1,4 @@
-package ro.nttdata.ligaaclabs.sample.api;
+package ro.nttdata.ligaaclabs.dojo.api;
 
 import javax.ejb.Stateless;
 import javax.ws.rs.GET;
@@ -11,22 +11,26 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 /**
- * This class provides the REST endpoint for performing hello calls.
+ * This class provides the REST endpoint for performing calls.
+ * modified after comment, please review :) :
+ *  Resursa pt hello ar putea fi inlocuita cu o resursa de Ping
+ *  specifica pt dojo management - de facut in pasul urmator :)
+ *  
  *
  */
-@Path("/status/hello")
+@Path("/status/dojo")
 @Stateless
-public class HelloResource {
+public class DojoPingResource {
 	@Context
 	private UriInfo context;
 
-	/** Creates a new instance of HelloResource */
-	public HelloResource() {
+	/** Creates a new instance of DojoPingResource */
+	public DojoPingResource() {
 		super();
 	}
 
 	/**
-	 * Performs a hello call.
+	 * Performs a call.
 	 *
 	 * @param name
 	 *            the name
@@ -37,10 +41,10 @@ public class HelloResource {
 	public Response ping(@QueryParam("name") final String name) {
 
 		if (name != null && name.length() > 0) {
-			return Response.ok().entity("Hello, " + name + "! I'm a resource!").build();
+			return Response.ok().entity("Hello, " + name + "! I'm a Dojo Resource!").build();
 
 		} else {
-			return Response.ok("Hello! I'm a resource!").build();
+			return Response.ok("Hello! I'm a Dojo Resource!").build();
 		}
 	}
 

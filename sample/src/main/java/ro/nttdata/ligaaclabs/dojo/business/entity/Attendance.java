@@ -1,4 +1,4 @@
-package ro.nttdata.ligaaclabs.sample.business.entity;
+package ro.nttdata.ligaaclabs.dojo.business.entity;
 
 import java.io.Serializable;
 import java.util.Date;

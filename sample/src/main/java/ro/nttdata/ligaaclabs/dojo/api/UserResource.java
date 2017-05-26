@@ -1,4 +1,4 @@
-package ro.nttdata.ligaaclabs.sample.api;
+package ro.nttdata.ligaaclabs.dojo.api;
 
 import java.util.List;
 
@@ -14,13 +14,12 @@ import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import ro.nttdata.ligaaclabs.sample.business.control.UserController;
-import ro.nttdata.ligaaclabs.sample.business.data.AttendanceUserDO;
-import ro.nttdata.ligaaclabs.sample.business.data.DetailedUserDO;
-import ro.nttdata.ligaaclabs.sample.business.data.UserDO;
+import ro.nttdata.ligaaclabs.dojo.business.control.UserController;
+import ro.nttdata.ligaaclabs.dojo.business.data.AttendanceUserDO;
+import ro.nttdata.ligaaclabs.dojo.business.data.UserDO;
 
 /**
- * Sample REST end point for getting info about the sample entities.
+ * Sample REST end point for getting info about the user entities.
  *
  */
 @Path("/user")
@@ -49,31 +48,19 @@ public class UserResource {
 	 * @return user entity by ID
 	 */
 	@GET
-	@Path("{userID}")
-	public Response getUserEntity(@NotNull @PathParam("userID") String userEntityID) {
-		DetailedUserDO userDO = UserController.getUserEntity(userEntityID);
+	@Path("{userentityID}")
+	public Response getUserEntity(@NotNull @PathParam("userentityID") String userEntityID) {
+		UserDO userDO = UserController.getUserEntity(userEntityID);
 		return Response.ok().entity(userDO).build();
 	}
-<<<<<<< Updated upstream
-
+/*
+ * Generic Entity http://docs.oracle.com/javaee/7/api/javax/ws/rs/core/GenericEntity.html
+ * 
+ */
 	@GET
 	@Path("workshop/{workshop}")
 	public Response getWorkshopAttendance(@NotNull @PathParam("workshop") String workshopName) {
 		List<AttendanceUserDO> attendanceDO = UserController.getWorkshopAttendance(workshopName);
 		return Response.ok().entity(new GenericEntity<List<AttendanceUserDO>>(attendanceDO){}).build();
 	}
-||||||| merged common ancestors
-=======
-
-	/*
-	 *  GenericEntity
-	 *  http://docs.oracle.com/javaee/6/api/javax/ws/rs/core/GenericEntity.html
-	 */
-	@GET
-	@Path("workshop/{workshop}")
-	public Response getWorkshopAttendance(@NotNull @PathParam("workshop") String workshopName) {
-		List<AttendanceUserDO> attendanceDO = UserController.getWorkshopAttendance(workshopName);
-		return Response.ok().entity(new GenericEntity<List<AttendanceUserDO>>(attendanceDO){}).build();
-	}
->>>>>>> Stashed changes
 }

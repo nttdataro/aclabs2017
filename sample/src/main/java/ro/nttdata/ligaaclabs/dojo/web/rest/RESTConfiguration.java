@@ -1,4 +1,4 @@
-package ro.nttdata.ligaaclabs.sample.web.rest;
+package ro.nttdata.ligaaclabs.dojo.web.rest;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

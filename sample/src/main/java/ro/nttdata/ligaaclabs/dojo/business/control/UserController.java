@@ -1,4 +1,4 @@
-package ro.nttdata.ligaaclabs.sample.business.control;
+package ro.nttdata.ligaaclabs.dojo.business.control;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,14 +8,13 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-import ro.nttdata.ligaaclabs.sample.business.data.AttendanceUserDO;
-import ro.nttdata.ligaaclabs.sample.business.data.DetailedUserDO;
-import ro.nttdata.ligaaclabs.sample.business.data.UserDO;
-import ro.nttdata.ligaaclabs.sample.business.entity.Attendance;
-import ro.nttdata.ligaaclabs.sample.business.entity.User;
+import ro.nttdata.ligaaclabs.dojo.business.data.AttendanceUserDO;
+import ro.nttdata.ligaaclabs.dojo.business.data.UserDO;
+import ro.nttdata.ligaaclabs.dojo.business.entity.Attendance;
+import ro.nttdata.ligaaclabs.dojo.business.entity.User;
 
 /**
- * Controller for handling operations related to sample entities.
+ * Controller for handling operations related to user and attendance.
  *
  */
 @SuppressWarnings("unused")
@@ -56,7 +55,7 @@ public class UserController {
 	 *            ID of the entity
 	 * @return the details of the user entity
 	 */
-	public DetailedUserDO getUserEntity(String userEntityID) {
+	public UserDO getUserEntity(String userEntityID) {
 		TypedQuery<User> query = this.em.createNamedQuery(User.BY_ID, User.class);
 		query.setParameter("id", Long.valueOf(userEntityID));
 		List<User> resultList = query.getResultList();
@@ -64,50 +63,9 @@ public class UserController {
 			return null;
 		}
 
-		return toDetailedUserDO(query.getResultList().get(0));
+		return toUserDO(query.getResultList().get(0));
 	}
 
-	private DetailedUserDO toDetailedUserDO(User se) {
-		DetailedUserDO detailedUserDO = new DetailedUserDO();
-		detailedUserDO.setId(se.getId());
-		detailedUserDO.setFirstName(se.getFirstName());
-		detailedUserDO.setLastName(se.getLastName());
-
-		return detailedUserDO;
-	}
-<<<<<<< Updated upstream
-
-	/**
-	 * Gets the user entity with the workshop
-	 * 
-	 * @param workshop
-	 * 
-	 * @return the details of the workshop attendance
-	 */
-	public List<AttendanceUserDO> getWorkshopAttendance(String workshopName) {
-		TypedQuery<UserEntity> query = this.em.createNamedQuery(UserEntity.BY_WKS, UserEntity.class);
-		query.setParameter("workshop", Long.valueOf(workshopName));
-		List<UserEntity> resultList = query.getResultList();
-		if (resultList == null || resultList.isEmpty()) {
-			return null;
-		}
-		List<AttendanceUserDO> result = new ArrayList<>();
-		for (UserEntity userEntity : resultList) {
-			result.add(toAttendanceUserDO(userEntity));
-		}
-		return result;
-	}
-
-	private AttendanceUserDO toAttendanceUserDO(UserEntity se) {
-		AttendanceUserDO attendanceUserDO = new AttendanceUserDO();
-		attendanceUserDO.setId(se.getId());
-		attendanceUserDO.setFirstName(se.getFirstName());
-		attendanceUserDO.setLastName(se.getLastName());
-		attendanceUserDO.setWorkshop(se.getWorkshop());
-		return attendanceUserDO;
-	}
-||||||| merged common ancestors
-=======
 
 	/**
 	 * Gets the user entity with the workshop
@@ -135,8 +93,7 @@ public class UserController {
 		attendanceUserDO.setId(userEntity.getId());
 		attendanceUserDO.setFirstName(userEntity.getFirstName());
 		attendanceUserDO.setLastName(userEntity.getLastName());
-		attendanceUserDO.setWorkshop(wks); 
+		attendanceUserDO.setWorkshop(wks);                                       // need review on @param wks 
 		return attendanceUserDO;
 	}
->>>>>>> Stashed changes
 }

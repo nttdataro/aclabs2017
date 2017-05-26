@@ -1,11 +1,10 @@
-package ro.nttdata.ligaaclabs.sample.business.data;
-
+package ro.nttdata.ligaaclabs.dojo.business.data;
 
 /**
- * Data object corresponding to a detailed representation of user entities.
+ * Data object storing basic information about user entities.
  *
  */
-public class AttendanceUserDO {
+public class UserDO {
 	/**
 	 * The id.
 	 */
@@ -20,15 +19,11 @@ public class AttendanceUserDO {
 	 * The last name.
 	 */
 	private String lastName;
-	/**
-	 * The workshop.
-	 */
-	private int workshop;
 
 	/**
 	 * Default constructor
 	 */
-	public AttendanceUserDO() {
+	public UserDO() {
 		super();
 	}
 
@@ -52,7 +47,7 @@ public class AttendanceUserDO {
 	}
 
 	/**
-	 * Gets the first name.
+	 * Gets the firstName.
 	 *
 	 * @return the firstName
 	 */
@@ -63,48 +58,29 @@ public class AttendanceUserDO {
 	/**
 	 * Sets the first name.
 	 *
-	 * @param firstName
-	 *            the name to set
+	 * @param first name
+	 *            the first name to set
 	 */
 	public void setFirstName(final String firstName) {
 		this.firstName = firstName;
 	}
-
 	/**
-	 * Gets the last name.
+	 * Gets the lastName.
 	 *
-	 * @return the last name
+	 * @return the lastName
 	 */
 	public String getLastName() {
-		return lastName;
+		return this.lastName;
 	}
 
 	/**
 	 * Sets the last name.
 	 *
-	 * @param lastName
-	 *            the lastName to set
+	 * @param last name
+	 *            the last name to set
 	 */
-	public void setLastName(String lastName) {
+	public void setLastName(final String lastName) {
 		this.lastName = lastName;
 	}
-	/**
-	 * Gets the workshop.
-	 *
-	 * @return the workshop
-	 */
-	public int getWorkshop() {
-		return workshop;
-	}
 
-	/**
-	 * Sets the workshop.
-	 *
-	 * @param workshop
-	 *            the workshop to set
-	 */
-	public void setWorkshop(int workshop) {
-		this.workshop = workshop;
-	}
 }
-
