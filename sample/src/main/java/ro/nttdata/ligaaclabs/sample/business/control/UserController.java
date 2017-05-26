@@ -1,5 +1,7 @@
 package ro.nttdata.ligaaclabs.sample.business.control;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -7,6 +9,7 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import ro.nttdata.ligaaclabs.sample.business.data.AttendanceUserDO;
 import ro.nttdata.ligaaclabs.sample.business.data.DetailedUserDO;
 import ro.nttdata.ligaaclabs.sample.business.data.UserDO;
 import ro.nttdata.ligaaclabs.sample.business.entity.UserEntity;
@@ -29,6 +32,7 @@ public class UserController {
 	 * 
 	 * @return the user data objects
 	 */
+
 	@SuppressWarnings("unchecked")
 	public List<UserDO> getUserObjects() {
 		final List<UserEntity> userEntities = this.em.createNamedQuery(UserEntity.ALL).getResultList();
@@ -68,5 +72,57 @@ public class UserController {
 		detailedUserDO.setLastName(se.getLastName());
 
 		return detailedUserDO;
+	}
+
+	/**
+	 * Gets the user entity with the workshop
+	 * 
+	 * @param workshop
+	 * 
+	 * @return the details of the workshop attendance
+	 */
+	public List<AttendanceUserDO> getWorkshopAttendance(String workshopName) {
+		TypedQuery<UserEntity> query = this.em.createNamedQuery(UserEntity.BY_WKS, UserEntity.class);
+		query.setParameter("workshop", Long.valueOf(workshopName));
+		List<UserEntity> resultList = query.getResultList();
+		if (resultList == null || resultList.isEmpty()) {
+			return null;
+		}
+		List<AttendanceUserDO> result = new ArrayList<>();
+		for (UserEntity userEntity : resultList) {
+			result.add(toAttendanceUserDO(userEntity));
+		}
+		return result;
+	}
+
+	private AttendanceUserDO toAttendanceUserDO(UserEntity se) {
+		AttendanceUserDO attendanceUserDO = new AttendanceUserDO();
+		attendanceUserDO.setId(se.getId());
+		attendanceUserDO.setFirstName(se.getFirstName());
+		attendanceUserDO.setLastName(se.getLastName());
+		attendanceUserDO.setWorkshop(se.getWorkshop());
+		return attendanceUserDO;
+	}
+
+	public boolean getPresent(long id, Date created_timestamp) {
+		TypedQuery<UserEntity> query = this.em.createNamedQuery(UserEntity.BY_WKS, UserEntity.class);
+		query.setParameter("id", Long.valueOf(id));
+		List<UserEntity> resultList = query.getResultList();
+		if (resultList == null || resultList.isEmpty()) {
+			return false;
+		}
+		AttendanceUserDO result;
+		for (UserEntity userEntity : resultList) {
+			if(id == userEntity.getId()){
+				if(created_timestamp == userEntity.getCreatedTimestamp()){
+					result = toAttendanceUserDO(userEntity);
+						return true;
+				}
+				else
+					return false;
+			}
+		}
+	
+		return false;
 	}
 }
