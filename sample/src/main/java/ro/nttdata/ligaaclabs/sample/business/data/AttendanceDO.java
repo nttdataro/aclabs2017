@@ -10,13 +10,13 @@ public class AttendanceDO {
 	/**
 	 * The attendance id.
 	 */
-	private int attendance_id;
+	private int attendanceID;
 
 	/**
 	 * The firstName.
 	 */
 	private String firstName;
-	
+
 	/**
 	 * The lastName.
 	 */
@@ -26,12 +26,12 @@ public class AttendanceDO {
 	 * The created timestamp.
 	 */
 	private Date createdTimestamp;
-	
+
 	/**
 	 * The dojo.
 	 */
 	private String dojo;
-	
+
 	/**
 	 * The laboratory.
 	 */
@@ -43,15 +43,15 @@ public class AttendanceDO {
 	public AttendanceDO() {
 		super();
 	}
-	
-	
+
+
 	/**
 	 * Gets the attendance id.
 	 *
 	 * @return the attendance id
 	 */
-	public int getAttendance_id() {
-		return attendance_id;
+	public int getAttendanceID() {
+		return attendanceID;
 	}
 
 	/**
@@ -60,8 +60,8 @@ public class AttendanceDO {
 	 * @param attendance id
 	 *            the attendance id to set
 	 */
-	public void setAttendance_id(int attendance_id) {
-		this.attendance_id = attendance_id;
+	public void setAttendanceID(int attendanceID) {
+		this.attendanceID = attendanceID;
 	}
 
 	/**

@@ -20,22 +20,22 @@ public class AttendanceController {
 
 	/**
 	 * inserts the new entity in database using entityManager
-	 * 
+	 *
 	 */
 	public void insertUserAttendanceObject(AttendanceDO attendance) {
 		em.persist(this.toInsertAttendanceDO(attendance));
-	
+
 	}
 
 	/**
-	 * 
+	 *
 	 * @param attendanceDO
 	 * method that makes the mapping between AttendanceEntity and AttendanceDO
 	 * @return AttendanceEntity
-	 */	
+	 */
 	private AttendanceEntity toInsertAttendanceDO(AttendanceDO attendanceDO) {
 		AttendanceEntity insertAttendanceEntity = new AttendanceEntity();
-		insertAttendanceEntity.setAttendance_id((int)attendanceDO.getAttendance_id());
+		insertAttendanceEntity.setAttendanceID(attendanceDO.getAttendanceID());
 		insertAttendanceEntity.setFirstName(attendanceDO.getFirstName());
 		insertAttendanceEntity.setLastName(attendanceDO.getLastName());
 		insertAttendanceEntity.setCreatedTimestamp(attendanceDO.getCreatedTimestamp());

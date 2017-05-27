@@ -17,7 +17,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "attendanceTable", schema = "attendance")
-@SequenceGenerator(name = "sq_attendance_object_id", sequenceName = "sq_attendance_object_id", allocationSize = 1)
+@SequenceGenerator(name = "sqAttendanceObjectID", sequenceName = "sqAttendanceObjectID", allocationSize = 1)
 public class AttendanceEntity implements Serializable {
 	/**
 	 * UID for serialization.
@@ -28,9 +28,9 @@ public class AttendanceEntity implements Serializable {
 	 * The attendance id.
 	 */
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_attendance_object_id")
-	@Column(name = "attendance_id", unique = true, nullable = false)
-	private int attendance_id;
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sqAttendanceObjectID")
+	@Column(name = "attendanceID", unique = true, nullable = false)
+	private int attendanceID;
 
 	/**
 	 * The FirstName.
@@ -47,7 +47,7 @@ public class AttendanceEntity implements Serializable {
 	/**
 	 * The created timestamp.
 	 */
-	@Column(name = "created_timestamp")
+	@Column(name = "createdTimestamp")
 	private Date createdTimestamp;
 
 	/**
@@ -55,7 +55,7 @@ public class AttendanceEntity implements Serializable {
 	 */
 	@Column(name = "dojo")
 	private String dojo;
-	
+
 	/**
 	 * The laboratory.
 	 */
@@ -67,8 +67,8 @@ public class AttendanceEntity implements Serializable {
 	 *
 	 * @return the attendance id
 	 */
-	public int getAttendance_id() {
-		return attendance_id;
+	public int getAttendanceID() {
+		return attendanceID;
 	}
 
 	/**
@@ -77,8 +77,8 @@ public class AttendanceEntity implements Serializable {
 	 * @param attendance id
 	 *            the attendance id to set
 	 */
-	public void setAttendance_id(int attendance_id) {
-		this.attendance_id = attendance_id;
+	public void setAttendanceID(int attendanceID) {
+		this.attendanceID = attendanceID;
 	}
 
 	/**
@@ -177,4 +177,3 @@ public class AttendanceEntity implements Serializable {
 		this.createdTimestamp = (createdTimestamp != null) ? new Date(createdTimestamp.getTime()) : null;
 	}
 }
-	
