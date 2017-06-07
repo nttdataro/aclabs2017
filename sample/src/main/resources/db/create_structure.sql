@@ -4,6 +4,7 @@ DROP SCHEMA IF EXISTS dojo CASCADE;
 
 CREATE SCHEMA IF NOT EXISTS dojo;
 
+
 set search_path to dojo;
 
 
@@ -55,13 +56,14 @@ insert into user_table (firstname, lastname, created_timestamp) values
 
 INSERT into user_attendance (user_id, created_timestamp, workshop) values
 
-(101, current_timestamp, 1),
+(101, current_timestamp, 3),
 
 (102, current_timestamp, 2),
 
 (103, current_timestamp, 1),
 
 (100, current_timestamp, 1);
+
 
 
 

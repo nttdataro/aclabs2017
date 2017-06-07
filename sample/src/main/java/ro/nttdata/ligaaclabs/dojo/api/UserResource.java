@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -59,7 +60,7 @@ public class UserResource {
  */
 	@GET
 	@Path("workshop/{workshop}")
-	public Response getWorkshopAttendance(@NotNull @PathParam("workshop") String workshopName) {
+	public Response getWorkshopAttendance(@NotNull @PathParam("workshop") @Pattern(regexp="[0-9]", message="doar numere " ) String workshopName) {
 		List<AttendanceUserDO> attendanceDO = UserController.getWorkshopAttendance(workshopName);
 		return Response.ok().entity(new GenericEntity<List<AttendanceUserDO>>(attendanceDO){}).build();
 	}

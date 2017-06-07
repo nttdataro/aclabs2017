@@ -20,7 +20,6 @@ import ro.nttdata.ligaaclabs.dojo.business.entity.User;
 @SuppressWarnings("unused")
 public class UserController {
 
-
 	/**
 	 * The Entity Manager.
 	 */
@@ -66,7 +65,6 @@ public class UserController {
 		return toUserDO(query.getResultList().get(0));
 	}
 
-
 	/**
 	 * Gets the user entity with the workshop
 	 * 
@@ -75,16 +73,16 @@ public class UserController {
 	 * @return the details of the workshop attendance
 	 */
 	public List<AttendanceUserDO> getWorkshopAttendance(String workshopName) {
+		List<AttendanceUserDO> result = new ArrayList<>();
 		TypedQuery<User> query = this.em.createNamedQuery(User.BY_WKS, User.class);
 		query.setParameter("workshop", Long.valueOf(workshopName));
 		List<User> resultList = query.getResultList();
-		if (resultList == null || resultList.isEmpty()) {
-			return null;
+		if (resultList != null && !resultList.isEmpty()) {
+			for (User userEntity : resultList) { // stream in java 8
+				result.add(toAttendanceUserDO(userEntity, Integer.valueOf(workshopName)));
+			}
 		}
-		List<AttendanceUserDO> result = new ArrayList<>();
-		for (User userEntity : resultList) {
-			result.add(toAttendanceUserDO(userEntity, Integer.valueOf(workshopName)));
-		}
+
 		return result;
 	}
 
@@ -93,7 +91,7 @@ public class UserController {
 		attendanceUserDO.setId(userEntity.getId());
 		attendanceUserDO.setFirstName(userEntity.getFirstName());
 		attendanceUserDO.setLastName(userEntity.getLastName());
-		attendanceUserDO.setWorkshop(wks);                                       // need review on @param wks 
+		attendanceUserDO.setWorkshop(wks); // need review on @param wks
 		return attendanceUserDO;
 	}
 }
