@@ -1,7 +1,7 @@
-package ro.nttdata.ligaaclabs.sample.business.data;
+package ro.nttdata.ligaaclabs.dojo.business.data;
 
 /**
- * Data object storing basic information about sample entities.
+ * Data object storing basic information about user entities.
  *
  */
 public class UserDO {

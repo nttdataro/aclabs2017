@@ -1,7 +1,9 @@
-package ro.nttdata.ligaaclabs.sample.business.entity;
+package ro.nttdata.ligaaclabs.dojo.business.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.SecondaryTable;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -18,12 +23,12 @@ import javax.persistence.Table;
  */
 @SuppressWarnings("unused")
 @Entity
-@Table(name = "user_table", schema = "sample")
+@Table(name = "user_table", schema = "dojo")
 @NamedQueries({
-		@NamedQuery(name = UserEntity.ALL, query = "SELECT s FROM UserEntity s"),
-		@NamedQuery(name = UserEntity.BY_ID, query = "SELECT s FROM UserEntity s where s.id = :id"), })
+		@NamedQuery(name = User.ALL, query = "SELECT u FROM User u"),
+		@NamedQuery(name = User.BY_ID, query = "SELECT u FROM User u where u.id = :id"),})
 @SequenceGenerator(name = "sq_user_id", sequenceName = "sq_user_id", allocationSize = 1)
-public class UserEntity implements Serializable {
+public class User implements Serializable {
 	/**
 	 * UID for serialization.
 	 */
@@ -43,28 +48,36 @@ public class UserEntity implements Serializable {
 	 * The Constant BY_ID.
 	 */
 	public static final String BY_ID = PREFIX + ".by.id";
+	/**
+	 * The Constant BY_WKS.
+	 */
+	public static final String BY_WKS = PREFIX + ".by.wks";
 
 	/**
 	 * The id.
 	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "sq_user_id")
-	@Column(name = "user_id", unique = true, nullable = false)
+	@Column(name = "user_id", unique = true, nullable = false, table = "user_table")
 	private long id;
 
 	/**
 	 * The first name.
 	 */
-	@Column(name = "firstname")
+	@Column(name = "firstname", table = "user_table")
 	private String firstName;
 
 	/**
 	 * The last name.
 	 */
-	@Column(name = "lastname")
+	@Column(name = "lastname", table = "user_table")
 	private String lastName;
-
-
+	
+	@OneToMany(mappedBy = "user")
+	private List<Attendance> attendance;
+	
+	// getters and setters
+	
 	/**
 	 * Gets the id.
 	 *
@@ -121,5 +134,23 @@ public class UserEntity implements Serializable {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
-
+	/**
+	 * Gets the attendance.
+	 *
+	 * @return attendance
+	 */
+	
+	public List<Attendance> getAttendance() {
+		return attendance;
+	}
+	/**
+	 * Sets the attendance.
+	 *
+	 * @param attendance
+	 *           
+	 */
+ 
+	public void setAttendance(List<Attendance> attendance) {
+		this.attendance = attendance;
+	}
 }

@@ -1,4 +1,4 @@
-package ro.nttdata.ligaaclabs.sample.business.util;
+package ro.nttdata.ligaaclabs.dojo.business.util;
 
 import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;
@@ -11,7 +11,7 @@ public class EntityManagerProducer {
 	/**
 	 * The entity manager.
 	 */
-	@PersistenceContext(unitName = "sample")
+	@PersistenceContext(unitName = "dojo")
 	private EntityManager em;
 
 	/**

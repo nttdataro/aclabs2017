@@ -1,11 +1,11 @@
-package ro.nttdata.ligaaclabs.sample.business.data;
+package ro.nttdata.ligaaclabs.dojo.business.data;
 
 
 /**
- * Data object corresponding to a detailed representation of sample entities.
+ * Data object corresponding to a detailed representation of user entities.
  *
  */
-public class DetailedUserDO {
+public class AttendanceUserDO {
 	/**
 	 * The id.
 	 */
@@ -20,11 +20,15 @@ public class DetailedUserDO {
 	 * The last name.
 	 */
 	private String lastName;
+	/**
+	 * The workshop.
+	 */
+	private int workshop;
 
 	/**
 	 * Default constructor
 	 */
-	public DetailedUserDO() {
+	public AttendanceUserDO() {
 		super();
 	}
 
@@ -84,4 +88,23 @@ public class DetailedUserDO {
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+	/**
+	 * Gets the workshop.
+	 *
+	 * @return the workshop
+	 */
+	public int getWorkshop() {
+		return workshop;
+	}
+
+	/**
+	 * Sets the workshop.
+	 *
+	 * @param workshop
+	 *            the workshop to set
+	 */
+	public void setWorkshop(int workshop) {
+		this.workshop = workshop;
+	}
 }
+
